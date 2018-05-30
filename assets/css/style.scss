@@ -5,11 +5,6 @@
 $large-breakpoint: 64em;
 $medium-breakpoint: 42em;
 
-// Headers
-$header-heading-color: #fff;
-$header-bg-color: #159957;
-$header-bg-color-secondary: #155799;
-
 // Text
 $section-headings-color: #159957;
 $body-text-color: #606c71;
@@ -25,7 +20,7 @@ $border-color: #dce6f0;
 $table-border-color: #e9ebec;
 $hr-border-color: #eff0f1;
 
-$background-color: #0086b3;
+
 
 @import "{{ site.theme }}";
 
