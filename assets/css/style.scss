@@ -3,10 +3,9 @@
 
 @import "{{ site.theme }}";
 
-$header-bg-color: #1e6bb8;
-$header-bg-color-secondary: #7EA7D3;
-
-$body-link-color: #7EA7D3;
-$blockquote-text-color: #819198;
-
-$code-text-color: #494D4E;
+.page-header {
+    color: #fff;
+    text-align: center;
+    background-color: #fff;
+    background-irl: "https://images.pexels.com/photos/132037/pexels-photo-132037.jpeg?auto=compress&cs=tinysrgb&h=350";
+}
