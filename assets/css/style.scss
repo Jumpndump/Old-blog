@@ -1,6 +1,8 @@
 ---
 ---
 
+$section-headings-color: #bf00ff;
+
 @import "{{ site.theme }}";
 
 .page-header {
@@ -14,3 +16,4 @@
 .page-header {
     padding: 2rem 6rem;
 }
+
