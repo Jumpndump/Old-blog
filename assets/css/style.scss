@@ -45,7 +45,6 @@ body {
 // MENU
 .menu {
   text-align: center;
-  width: 100%;
   margin: 0px 0px 0px 0px;
   padding: 10px 6px 6px 6px;
   height: 60px;
@@ -53,6 +52,8 @@ body {
   border-bottom: solid 1px #8D73FF;
   position:relative;
   background-color: #1B1817;
+  padding-left: 30%;
+  padding-right: 30%;
 }
 
 #menu-bar {
