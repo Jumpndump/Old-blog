@@ -28,10 +28,13 @@ body {
 .page-header {
     padding: 2rem 6rem;
     text-align: center;
-    text-shadow: -1px 0 40px #25f68b, 1px 0 0px #25f68b, 0 -1px 10px #25f68b;   
     background-image: url("../../img/ASMpetittransp.PNG");
     background-size: 175%;
     background-repeat: no-repeat;
+}
+
+.project-name {
+     text-shadow: -1px 0 40px #25f68b, 1px 0 0px #25f68b, 0 -1px 10px #25f68b;   
 }
 
 .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
