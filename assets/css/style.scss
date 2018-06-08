@@ -9,12 +9,15 @@ purple : #8d73ff
 green : #25f68b
 */
 
+//header
+$header-bg-color: #333333;
+
 // Text
 $body-text-color: #aaaaaa;
 $body-link-color: #606c71;
 
 //code
-$code-bg-color: #222222 !default;
+$code-bg-color: #222222;
 
 @import "{{ site.theme }}";
 
