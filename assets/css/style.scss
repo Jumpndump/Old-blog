@@ -1,5 +1,17 @@
 ---
 ---
+//color
+/*
+dark grey : #333333
+medium grey : #606c71
+light grey : #aaaaaa
+purple : #8a30ff
+green : #25f68b
+*/
+
+// Text
+$body-text-color: #aaaaaa;
+$body-link-color: #606c71;
 
 //code
 $code-bg-color: #222222 !default;
@@ -13,7 +25,7 @@ body {
 .page-header {
     padding: 2rem 6rem;
     text-align: center;
-    text-shadow: -1px 0 50px #25f68b, 1px 0 50px #25f68b, 0 -1px 20px #25f68b;   
+    text-shadow: -1px 0 50px #25f68b, 1px 0 0px #25f68b, 0 -1px 20px #25f68b;   
     background-image: url("../../img/ASMpetit.PNG");
     background-size: 175%;
     background-repeat: no-repeat;
