@@ -1,7 +1,8 @@
 ---
 ---
 
-$code-bg-color: #333333 !default;
+//code
+$code-bg-color: #222222 !default;
 
 @import "{{ site.theme }}";
 
@@ -16,4 +17,8 @@ body {
     background-image: url("../../img/ASMpetit.PNG");
     background-size: 175%;
     background-repeat: no-repeat;
+}
+
+.main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
+    color: #8a30ff;
 }
