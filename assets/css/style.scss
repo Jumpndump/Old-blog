@@ -3,6 +3,10 @@
 
 @import "{{ site.theme }}";
 
+body {
+    background-color: coral;
+}
+
 .page-header {
     color: #fff;
     text-align: center;
