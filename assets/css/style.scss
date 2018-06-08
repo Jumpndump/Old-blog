@@ -45,9 +45,6 @@ body {
 // MENU
 .menu {
   text-align: center;
-}
-
-#menu-bar {
   width: 100%;
   margin: 0px 0px 0px 0px;
   padding: 10px 6px 6px 6px;
@@ -56,6 +53,16 @@ body {
   border-bottom: solid 1px #8D73FF;
   position:relative;
   background-color: #1B1817;
+}
+
+#menu-bar {
+  width: 900px;
+  position: relative;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  
 }
 #menu-bar li {
   margin: 5px 0px 0px 0px;
@@ -68,7 +75,7 @@ body {
   font-weight: normal;
   font-family: helvetica;
   font-style: normal;
-  font-size: 16px;
+  font-size: 10px;
   color: #E7E5E5;
   text-decoration: none;
   display: block;
@@ -109,7 +116,7 @@ body {
 #menu-bar ul a {
   padding:10px 9px 10px 16px;
   color:#E7E5E5 !important;
-  font-size:16px;
+  font-size:10px;
   font-style:normal;
   font-family:helvetica;
   font-weight: normal;
