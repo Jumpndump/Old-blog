@@ -54,7 +54,7 @@ body {
 }
 
 #menu-bar {
-  width: 900px;
+  width: 800px;
   position: relative;
   padding-right: 15px;
   padding-left: 15px;
@@ -63,7 +63,7 @@ body {
   
 }
 #menu-bar li {
-  padding: 0px 25px 0px 25px;
+  //padding: 0px 25px 0px 25px;
   float: left;
   position: relative;
   list-style: none;
@@ -99,10 +99,11 @@ body {
   background: #1B1817;
   display: none;
   padding: 0;
-  width: 130px;
-  position: inherit;
+  width: 120px;
+  position: relative;
   top: 0px;
   left: 0;
+  text-align: center;
 }
 #menu-bar ul li {
   float: none;
