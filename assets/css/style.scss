@@ -1,10 +1,12 @@
 ---
 ---
 
+$code-bg-color: #8D7F86; !default
+
 @import "{{ site.theme }}";
 
 body {
-    background-color: coral;
+    background-color: #333333;
 }
 
 .page-header {
