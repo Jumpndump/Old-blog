@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 permalink: /malware/
 title: Reverse TinyNuke 101
 tag: malware
