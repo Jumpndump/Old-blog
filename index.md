@@ -8,7 +8,7 @@ title: HOME
     <h2>
         {{ post.title }}
     </h2>
-    {{ post.date | date: "%d-%m-%Y }}</time><br>
+    {{ post.date | date: "%d-%m-%Y }}<br>
     {{ post.content | strip_html | truncatewords:75}}<br>
             <a href="{{ post.url }}">Read more...</a><br><br>
   </article>
