@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /fiches/windows
+permalink: /fiches/windows/
 title: FichesWindows
 ---
  
