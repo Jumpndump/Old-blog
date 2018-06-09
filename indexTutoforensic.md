@@ -4,7 +4,7 @@ permalink: /forensiclab/tuto/
 title: ForensicLab-Tuto
 ---
  
- {% for post in site.tags.tutoforensic %}
+ {% for post in site.tags.forensictuto %}
   <article>
     <h2>
         {{ post.title }}
