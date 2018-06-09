@@ -7,11 +7,10 @@ title: HOME
   <article>
     <h2>
         {{ post.title }}
-      </a>
     </h2>
-    <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date }}</time></br>
-    {{ post.content | strip_html | truncatewords:75}}</br>
-            <a href="{{ post.url }}">Read more...</a></br></br>
+    <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date: "%d-%m-%Y }}</time><br>
+    {{ post.content | strip_html | truncatewords:75}}<br>
+            <a href="{{ post.url }}">Read more...</a><br><br>
   </article>
 {% endfor %}
 
