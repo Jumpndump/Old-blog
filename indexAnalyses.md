@@ -4,7 +4,7 @@ permalink: /malwarelab/analyses/
 title: MalwareLab-Analyses
 ---
  
- {% for post in site.tags.analyses %}
+ {% for post in site.tags.analyse %}
   <article>
     <h2>
         {{ post.title }}
