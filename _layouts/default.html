@@ -40,13 +40,11 @@
     </section>
     
     <section class="main-content">
-      {% if site.title == "HOME" %}
         <ul class="related_posts">
           {% for post in site.related_posts %}
             <li><a href="{{ post.url }}">{{ post.title }}</a></li>
           {% endfor %}
-        </ul>
-      {% endif %}      
+        </ul>    
       
       {{ content }}
 
