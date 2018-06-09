@@ -40,16 +40,10 @@
     </section>
     
     <section class="main-content">
-     {% if site.current_url == "https://devanshellc0de.github.io" %}
+      {% if site.title == "HOME" %}
         <div class="recent">
-            <h2>Articles récents</h2>
-            <ul>
-                {% list site.post(10) %}
-                    <li>
-                        <a href="{{Post.Permalink}}">{{ Post.Title }}</a>
-                    </li>
-                {% endlist %}
-            </ul>
+            <h2>Articles</h2>
+            {{ site.related.posts }}
         </div>
       {% endif %}      
       
