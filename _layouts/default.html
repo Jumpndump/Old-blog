@@ -20,7 +20,7 @@
        <li><a href="#">ARTICLES</a></li>
        <li><a href="#">FORENSIC LAB +</a>
         <ul>
-         <li><a href="#">MALWARE</a></li>
+         <li><a href="./malware">MALWARE</a></li>
          <li><a href="#">TUTO</a></li>
         </ul>
        </li>
@@ -40,11 +40,11 @@
     </section>
     
     <section class="main-content">
-     {% if current_url == "https://devanshellc0de.github.io" %}}
+     {% if site.current_url == "https://devanshellc0de.github.io" %}
         <div class="recent">
             <h2>Articles récents</h2>
             <ul>
-                {% list Blog.Posts(10) %}
+                {% list site.post(10) %}
                     <li>
                         <a href="{{Post.Permalink}}">{{ Post.Title }}</a>
                     </li>
