@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /fiches/linux
+permalink: /fiches/linux/
 title: FichesLinux
 ---
  
