@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /fiches/windows
-title: Fiches
+title: FichesWindows
 ---
  
  {% for post in site.tags.fichewindows %}
