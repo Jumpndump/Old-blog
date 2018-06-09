@@ -3,6 +3,8 @@ layout: default
 title: HOME
 ---
 
+<div text-align="center">DERNIERS ARTICLES</div><br>
+
  {% for post in site.posts %}
   <article>
     <h2>
@@ -13,7 +15,3 @@ title: HOME
             <a href="{{ post.url }}">Read more...</a><br><br>
   </article>
 {% endfor %}
-
-## test 1
-
-blabla
