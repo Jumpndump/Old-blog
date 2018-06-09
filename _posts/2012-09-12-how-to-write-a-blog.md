@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 permalink: /forensic/
 title: Howto forensic 101
 ---
