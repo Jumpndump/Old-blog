@@ -3,7 +3,7 @@ layout: default
 title: HOME
 ---
 
-<div text-align="center">DERNIERS ARTICLES</div><br>
+<p align="center">DERNIERS ARTICLES</p><br>
 
  {% for post in site.posts %}
   <article>
