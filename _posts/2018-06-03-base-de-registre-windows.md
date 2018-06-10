@@ -3,9 +3,10 @@ layout: default
 permalink: /fiches/windows/bases-de-registres
 title: La base de registre de Windows 
 tag: fichewindows
+category: post
 ---
 
-#La base de registre de Windows 
+## La base de registre de Windows 
 
 La base de registre Windows est une immense base de données contenant les fichiers de configuration nécessaires au système, au matériel, aux applications et aux utilisateurs.
 
