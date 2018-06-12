@@ -6,6 +6,7 @@ grey black : #1B1817
 dark grey : #333333
 medium grey : #606c71
 light grey : #aaaaaa
+link grey : #d8d8d8
 purple : #8d73ff
 green : #25f68b
 */
@@ -44,6 +45,10 @@ code {
 
 .main-content {
     font-size: 16px;
+}
+
+.main-content a {
+    color: #d8d8d8;
 }
 
 .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
