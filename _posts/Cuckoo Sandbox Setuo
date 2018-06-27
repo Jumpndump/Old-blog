@@ -1,0 +1,54 @@
+Installation step + docs.cuckoo
+----------
+Mettre un mot de passe root
+Ajouter les repo dans la source.list
+
+deb http://deb.debian.org/debian stretch main contrib non-free
+deb-src http://deb.debian.org/debian stretch main contrib non-free
+
+deb http://deb.debian.org/debian stretch-updates main contrib non-free
+deb-src http://deb.debian.org/debian stretch-updates main contrib non-free
+
+deb http://security.debian.org/debian-security/ stretch/updates main contrib non-free
+deb-src http://security.debian.org/debian-security/ stretch/updates main contrib non-free
+
+deb http://download.virtualbox.org/virtualbox/debian stretch contrib
+
+télécharger la clé vbox
+wget https://www.virtualbox.org/download/oracle_vbox_2016.asc
+apt-key add oracle_vbox_2016.asc
+
+Installer le wifi
+apt install firmware-iwlwifi
+
+Installer virtualenv, virtualbox et pip
+apt install virtualbox-5.2 python-pip
+apt install libjpeg-dev zlib1g-dev
+pip install virtualenv
+
+ensuite dans le venv
+. venv/bin/activate
+pip install -U pip setuptools
+pip install -U cuckoo
+
+mkdir /opt/cuckoo
+chown cuckoo:cuckoo /opt/cuckoo
+export CUCKOO=/opt/cuckoo
+cuckoo
+cuckoo --cwd /opt/cuckoo/ community
+
+
+apt install mongodb
+#dans /opt/cuckoo/conf/reporting.conf 
+mettre mongodb à yes
+
+
+Install client
+Installer python, pillow, agent.py
+désinstaller le fw
+----------
+
+OS Windows : https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/
+
+python -m SimpleHTTPServer 8090
+
