@@ -6,6 +6,8 @@ tag: forensictuto
 category: post
 ---
 
+## Identifier un processus malveillant (offline)
+
 L'analyse d'un disque requiert parfois une analyse offline (contrainte d'accessibilité, disponibilité...). Dans ces cas là, il s'agit d'analyser le dump mémoire de la machine infectée afin d'identifier les processus malveillants à un instant t.
 
 Pour effectuer l'analyse, nous utiliserons l'outil **volatility**.
