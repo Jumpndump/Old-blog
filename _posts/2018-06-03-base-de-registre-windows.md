@@ -70,16 +70,16 @@ Cette clé peut permettre de voir ce qui a été récemment lancé sur la machin
 Sous cette clé, les programmes sont classés selon certains critères, grâce au GUID. Le GUID est composé de plusieurs segments de caractères séparés par un tiret, dont voici une liste non exhaustive de leur signification :
 
 - **Sur Windows XP**
-    75048700 : tout élément relatifs à Active Desktop
+   - 75048700 : tout élément relatifs à Active Desktop
 - **Sur Windows 7**
-    CEBFF5CD : exécuté via un fichier exécutable
-    F4E57C4B : exécuté via un fichier raccourcis
-    Localisation sur Windows 7
-    6D809377 : ProgramFilesX64
-    7C5A40EF : ProgramFilesX86 
-    1AC14E77 : System 
-    D65231B0 : SystemX86
-    B4BFCC3A : Desktop
-    FDD39AD0 : Documents
-    374DE290 : Downloads
-    0762D272 : UserProfiles 
+   - CEBFF5CD : exécuté via un fichier exécutable
+   - F4E57C4B : exécuté via un fichier raccourcis
+   - Localisation sur Windows 7
+   - 6D809377 : ProgramFilesX64
+   - 7C5A40EF : ProgramFilesX86 
+   - 1AC14E77 : System 
+   - D65231B0 : SystemX86
+   - B4BFCC3A : Desktop
+   - FDD39AD0 : Documents
+   - 374DE290 : Downloads
+   - 0762D272 : UserProfiles 
