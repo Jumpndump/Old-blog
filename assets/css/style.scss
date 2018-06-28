@@ -21,6 +21,15 @@ $body-link-color: #606c71;
 //code
 $code-bg-color: #000;
 
+//highlight code synthax
+.highlight .nt {
+    color: aquamarine; //option in bash
+}
+
+.highlight .o {
+    color: cornsilk; //= in bash
+}
+
 @import "{{ site.theme }}";
 
 body {
