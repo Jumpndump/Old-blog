@@ -2,7 +2,7 @@
 layout: default
 permalink: /fiches/windows/bases-de-registres
 title: La base de registre de Windows 
-tag: fiche windows
+tag: fiche_windows
 category: post
 ---
 
