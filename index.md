@@ -8,7 +8,7 @@ title: HOME
  {% for post in site.posts %}
   <article>
     <h2>
-        {{ post.title }} <div class="tag"> >{{ post.tag }} </div>
+        {{ post.title }} <div class="tag"> > {{ post.tag }} </div>
     </h2>
     <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_string }}</time><br>
     {{ post.content | strip_html | truncatewords:75}}<br>
