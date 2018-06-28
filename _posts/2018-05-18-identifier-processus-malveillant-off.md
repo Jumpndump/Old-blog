@@ -2,7 +2,7 @@
 layout: default
 permalink: /fiches/windows/identifier-processus-malveillant-off
 title: Identifier un pricessus malveillant (offline)
-tag: tuto forensic
+tag: tuto_forensic
 category: post
 ---
 
