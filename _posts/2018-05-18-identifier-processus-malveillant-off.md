@@ -20,7 +20,7 @@ vol.py --f fichier.raw imageinfo
 Plusieurs profils possibles sont alors proposés. Le bon est souvent le dernier. Il convient toutefois de vérifier avec le Service Pack detecté dans le résultat de la même commande.
 Pour chaque plugin utilisé, il faudra donc évidement fournir à volatility le nom du dump et le profil système adéquat comme ceci :
 ```bash
-vol.py --f fichier.raw --profil=Win7SP1x86 \<plugin\>
+vol.py --f fichier.raw --profil=Win7SP1x86 <plugin>
 ```
 
 **Astuce :** il est assez rébarbatif de taper toute la commande à chaque utilisation d'un plugin. Il peut être alors pratique de créer un alias afin de n'avoir plus que le plugin et ses paramètres à taper.
@@ -75,15 +75,11 @@ vol dlllist -p <PID>
 
 \<screen dllist\>
 
-
-
 On pourra également vérifier ses handles associés à ce processus grâce au plugin handles.
-
-
-
+```bash
 vol handles -p <PID>
-
+```
 
 Ce plugin permet de savoir dans quel(s) clé(s) de registre le processus malveillant s'est implanté.
 
-Les injections de code
+## Les injections de code
