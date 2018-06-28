@@ -4,7 +4,7 @@ permalink: /fiches/windows/
 title: FichesWindows
 ---
  
- {% for post in site.tags.fichewindows %}
+ {% for post in site.tags.fiche_windows %}
   <article>
     <h2>
         {{ post.title }}
