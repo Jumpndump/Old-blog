@@ -4,7 +4,7 @@ permalink: /fiches/linux/
 title: FichesLinux
 ---
  
- {% for post in site.tags.fichelinux %}
+ {% for post in site.tags.fiche_linux %}
   <article>
     <h2>
         {{ post.title }}
