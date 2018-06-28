@@ -49,3 +49,37 @@ Quelques clés de liste MRU utiles :
 | LastVisitedMRU | Liste les exécutables utilisés pour ouvrir et sauvegarder les fichiers listés dans OpenSaveMRU.<br><br>Il est possible de retrouver la localisation du dernier fichier à avoir été accédé par un exécutable donné.                                                                                                                                                                                                                              | **Sur Windows XP** :<br> NTUSER.DAT\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\ LastVisitedMRU<br><br>**Sur Windows 7** :<br> NTUSER.DAT\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\ LastVisitedPidlMRU |
 | RunMRU         | Liste les commandes saisies via la fenêtre de dialogue Exécuter. Les lettres correspondent à l'ordre dans lequel les commandes ont été exécutées.                                                                                                                                                                                                                                                                                         | NTUSER.DAT\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU                                                                                                                                                 |
 | ACMRU          | Windows mémorise les termes recherchés par l'utilisateurs afin de pouvoir les proposer plus tard à l'utilisateur. ACMRU est l'abréviation de Auto Complete MRU. Les valeurs sont classées en fonction du type de recherche ayant été effectuée :<br><br>5001 : recherche Internet<br>5603 : nom ou nom partiel d'un document<br>5604 : mot contenu dans un fichier<br>5647 : ordinateurs, imprimantes ou personnes                                       | **Sur Windows XP** :<br>NTUSER.DAT\Software\Microsoft\Search Assistant\ACMru\                                                                                                                                               |
+
+## Les Shellbags
+
+Ces clés de registres permettent de conserver les préférences des dossiers de l'utilisateur (disposition, taille des icônes, ...).
+
+Ces derniers persistent même après la suppression d'un dossier, ce qui s'avère très utile pour pour l'investigateur. En effet, il est alors possible, grâce à des outils tels que sbag (ShellBag Parser) de retrouver des informations quant aux médias qui ont été montés sur la machine, des fichiers supprimés ou encore reconstituer les actions de l'utilisateur. En effet, il faut noter que pour chaque dossier accédé par l'utilisateur, un shellbag est créé.
+
+| OS | Localisation |
+|:------------:|:-----------------------------------------------------------------------------------------------------------------------------:|
+| Windows XP | NTUSER.DAT\Software\Microsoft\Windows\Shell\ \n NTUSER.DAT\Software\Microsoft\Windows\ShellNoRoam\ |
+| Windows 7 | NTUSER.DAT\Local Settings\Software\Microsoft\Windows\Shell\ \n USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell |
+
+## La clé UserAssist
+
+La clé UserAssist garde une trace de tous les programmes lancés **depuis le bureau**. Cette clé se situe dans <code>NTUSER.DAT\Software\Microsoft\Windows\Currentversion\Explorer\UserAssist</code>.
+
+Cette clé peut permettre de voir ce qui a été récemment lancé sur la machine, comme la trace de binaires malveillants, d'outils d'effacement de données ou de chiffrement par exemple.
+
+Sous cette clé, les programmes sont classés selon certains critères, grâce au GUID. Le GUID est composé de plusieurs segments de caractères séparés par un tiret, dont voici une liste non exhaustive de leur signification :
+
+- **Sur Windows XP**
+    75048700 : tout élément relatifs à Active Desktop
+- **Sur Windows 7**
+    CEBFF5CD : exécuté via un fichier exécutable
+    F4E57C4B : exécuté via un fichier raccourcis
+    Localisation sur Windows 7
+    6D809377 : ProgramFilesX64
+    7C5A40EF : ProgramFilesX86 
+    1AC14E77 : System 
+    D65231B0 : SystemX86
+    B4BFCC3A : Desktop
+    FDD39AD0 : Documents
+    374DE290 : Downloads
+    0762D272 : UserProfiles 
