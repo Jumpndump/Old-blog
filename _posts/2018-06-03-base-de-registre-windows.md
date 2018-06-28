@@ -58,8 +58,8 @@ Ces derniers persistent même après la suppression d'un dossier, ce qui s'avèr
 
 | OS | Localisation |
 |:------------:|:-----------------------------------------------------------------------------------------------------------------------------:|
-| Windows XP | NTUSER.DAT\Software\Microsoft\Windows\Shell\<br>NTUSER.DAT\Software\Microsoft\Windows\ShellNoRoam\ |
-| Windows 7 | NTUSER.DAT\Local Settings\Software\Microsoft\Windows\Shell\<br>USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell |
+| Windows XP | NTUSER.DAT\Software\Microsoft\Windows\Shell\ <br>NTUSER.DAT\Software\Microsoft\Windows\ShellNoRoam\ |
+| Windows 7 | NTUSER.DAT\Local Settings\Software\Microsoft\Windows\Shell\ <br>USRCLASS.DAT\Local Settings\Software\Microsoft\Windows\Shell |
 
 ## La clé UserAssist
 
