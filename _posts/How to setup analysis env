@@ -1,0 +1,12 @@
+- torrified Windows
+- redirect trafic to linux VM for tools and analysis (localy, to much noise)
+
+create a linux VM
+create a windows VM (can download a MS Edge for dev windows)
+create a NatNetwork on VBox
+set network on NatNetwork for Linux + Windows VM
+manually put Windows IP (n'importe) + gateway qui est l'IP de la linux (pas oublier DNS)
+activer le forwarding de packet echo 1 > /proc/sys/net/ipv4/ip_forward
+tester en lancant wireshark dans la linux pour voir si on voit le trafic de la Windows
+
+o/
