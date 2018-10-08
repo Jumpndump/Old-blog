@@ -1,10 +1,10 @@
 Articles -> article
 ForensicLabs
   - Malware -> malware
-  - Tuto -> forensictuto
+  - Tuto -> forensic_tuto
 MalwareLab
   - Analyses -> analyse
-  - Tuto -> malwaretuto
+  - Tuto -> malware_tuto
 Fiches
-  - Windows -> fichewindows
-  - Linuw -> fichelinux
+  - Windows -> fiche_windows
+  - Linuw -> fiche_linux
