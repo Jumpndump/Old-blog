@@ -60,3 +60,5 @@ API call IsDebuggerPresent() check for the 2nd byte of PEB. Return 0 if is not d
 
 ### NtGlobalFlag
 Check the offset offset 0x68/0xBC (x86/x64) in PEB is set to 0x70. This value is set when a process is created with a debugger.
+
+[TBC]
