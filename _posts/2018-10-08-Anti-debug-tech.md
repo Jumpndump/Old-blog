@@ -2,7 +2,7 @@
 layout: default
 permalink: /fiches/windows/anti-debug-tech
 title: Techniques d'anti-debug communes
-tag: malware_tuto
+tag: tuto_malware
 category: post
 ---
 
