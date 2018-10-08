@@ -8,6 +8,7 @@ medium grey : #606c71
 light grey : #aaaaaa
 link grey : #d8d8d8
 purple : #8d73ff
+light purple : #b8a7ff
 green : #25f68b
 */
 
@@ -61,8 +62,12 @@ table {
     text-decoration: underline;
 }
 
-.main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
+.main-content h1, .main-content h2, .main-content h4, .main-content h5, .main-content h6 {
     color: #8d73ff;
+}
+
+.main-content h3 {
+    color: ##b8a7ff;
 }
 
 .main-content code {
