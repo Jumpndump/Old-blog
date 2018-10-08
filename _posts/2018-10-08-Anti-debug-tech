@@ -1,4 +1,12 @@
-# Common Anti-debug techniques Cheat Sheet
+---
+layout: default
+permalink: /fiches/windows/anti-debug-tech
+title: Techniques d'anti-debug communes
+tag: malwaretuto
+category: post
+---
+
+# Common Anti-debug technics Cheat Sheet
 
 Ref: http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/
 
