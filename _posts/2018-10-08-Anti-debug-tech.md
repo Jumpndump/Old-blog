@@ -6,10 +6,6 @@ tag: tuto_malware
 category: post
 ---
 
-# Common Anti-debug technics Cheat Sheet
-
-Ref: http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/
-
 ## Breakpoints check
 
 ### 0xCC bytes
@@ -57,11 +53,11 @@ Sends a string to the debugger to display it.
 If this flag is set, instructions are executed in single-step mode (step-by-step) and raises SINGLE_STEP exception.
 
 Ex:
-assembly'''
+'''assembly
 pushf                                                    ; Push flag on stack
 mov dword [esp], 0x100                ; Set TrapFlag flag (0x100)
 popf                                                      ; Restore flag register
-assembly'''
+'''assembly
 
 ### IsDebugged
 API call IsDebuggerPresent() check for the 2nd byte of PEB. Return 0 if is not debugged.
@@ -70,3 +66,6 @@ API call IsDebuggerPresent() check for the 2nd byte of PEB. Return 0 if is not d
 Check the offset offset 0x68/0xBC (x86/x64) in PEB is set to 0x70. This value is set when a process is created with a debugger.
 
 [TBC]
+
+
+Ref: http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/
