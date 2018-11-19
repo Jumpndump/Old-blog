@@ -1,19 +1,23 @@
 ---
 layout: default
-permalink: /fiches/windows/anti-debug-tech
+permalink: /malwarelab/tuto/anti-debug-tech
 title: Techniques d'anti-debug communes
 tag: tuto_malware
 category: post
 ---
 
-## Breakpoints check
+La plupart des malwares implémentent des mécanismes d'anti-debug. Cela à pour conséquence de crasher le malware lorsque celui-ci détecte qu'il est en train d'être analysé.
 
-### 0xCC bytes
-When set a breakpoint in a debugger, that modify the code inserting 0xCC byte.
-Can be a xored value, but some anti-debugg check it too (i.e 0xCC ^ 0x99, 0xCC ^ 0x55…)
+Il existe plusieurs techniques d'anti-debug, mais les plus communes et classiques sont les suivantes.
 
-### Hardware breakpoints
-Calls GetThreadContext / SetThreadContext API and check for presence of DR0…DR4 debug registers.
+## Vérification de la présence de breakpoints
+Lorsque l'on positionne un breakpoint dans le débuggeur, on insert dans le code une instruction spécifique au breakpoint. Cette instruction lève une interruption et le CPU se met en pause (en réalité, il sauvegarde son état (adresse, mémoire...) puis s'arrête, mais ne termine pas le programme).
+
+### Breakpoint logiciel : int 3
+Il s'agit tout simplement de l'instruction correspondant au breakpoint (0xCC en hexadécimal). On peut la rencontrer aussi sous forme d'une valeur xorée (0xCC ^ 0x99, 0xCC ^ 0x55…) afin d'éviter d'être repérée.
+
+### Breakpoint matériel (hardware)
+Le but ici est de vérifier la présence des registres de débug DR0...DR4. Pour cela, soit on appelle les API GetThreadContext / SetThreadContext, soit on lève une exception (par exemple avec un xor eax, eax / div eax).
 
 ### Guard pages
 Creation of PAGE_GUARD mem page and access it to causes access violation. If STATUS_GUARD_PAGE_VIOLATION occurs there is no debug. Imitation of debugger behavior.
@@ -53,11 +57,11 @@ Sends a string to the debugger to display it.
 If this flag is set, instructions are executed in single-step mode (step-by-step) and raises SINGLE_STEP exception.
 
 Ex:
-'''assembly
+```assembly
 pushf                                                    ; Push flag on stack
 mov dword [esp], 0x100                ; Set TrapFlag flag (0x100)
 popf                                                      ; Restore flag register
-'''assembly
+```
 
 ### IsDebugged
 API call IsDebuggerPresent() check for the 2nd byte of PEB. Return 0 if is not debugged.
@@ -65,7 +69,8 @@ API call IsDebuggerPresent() check for the 2nd byte of PEB. Return 0 if is not d
 ### NtGlobalFlag
 Check the offset offset 0x68/0xBC (x86/x64) in PEB is set to 0x70. This value is set when a process is created with a debugger.
 
-[TBC]
+### Heap Flags
+
 
 
 Ref: http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/

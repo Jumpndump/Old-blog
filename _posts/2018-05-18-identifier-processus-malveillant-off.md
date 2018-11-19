@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /fiches/windows/identifier-processus-malveillant-off
+permalink: /forensiclab/tuto/identifier-processus-malveillant-off
 title: Identifier un processus malveillant (offline)
 tag: tuto_forensic
 category: post
