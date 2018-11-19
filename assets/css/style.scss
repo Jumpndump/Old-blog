@@ -16,7 +16,7 @@ green : #25f68b
 $header-bg-color: #333333;
 
 // Text
-$body-text-color: #aaaaaa;
+$body-text-color: #dbdbdb;
 $body-link-color: #606c71;
 
 //code
@@ -44,8 +44,8 @@ table {
 .page-header {
     padding: 2rem 6rem;
     text-align: center;
-    background-image: url("../../img/ASMpetittransp.PNG");
-    background-size: 175%;
+    background-image: url("../../img/EAX_2.png");
+    background-size: 100%;
     background-repeat: no-repeat;
 }
 
@@ -67,7 +67,9 @@ table {
 }
 
 .main-content h3 {
-    color: #25f68b;
+    color: #dbdbdb;
+    margin-bottom: -1rem;
+    font-weght: bold;
 }
 
 .main-content code {
