@@ -17,49 +17,52 @@ Lorsque l'on positionne un breakpoint dans le débuggeur, on insert dans le code
 Il s'agit tout simplement de l'instruction correspondant au breakpoint (0xCC en hexadécimal). On peut la rencontrer aussi sous forme d'une valeur xorée (0xCC ^ 0x99, 0xCC ^ 0x55…) afin d'éviter d'être repérée.
 
 ### Breakpoint matériel (hardware)
-Le but ici est de vérifier la présence des registres de débug DR0...DR4. Pour cela, soit on appelle les API GetThreadContext / SetThreadContext, soit on lève une exception (par exemple avec un xor eax, eax / div eax).
+Le but ici est de vérifier la présence des registres de débug DR0...DR4. Pour cela, soit on appelle les API GetThreadContext / SetThreadContext, soit on lève une exception (par exemple avec un xor eax, eax / div eax) afin d'y accéder.
 
-### Guard pages
-Creation of PAGE_GUARD mem page and access it to causes access violation. If STATUS_GUARD_PAGE_VIOLATION occurs there is no debug. Imitation of debugger behavior.
+### Détection des "guard pages"
+Une guard page est une zone mémoire non mappée, créée automatiquement lors d'opérations d'allocation. Elle permet de se prémunir des heap buffer overflow et se place entre la pile et le tas.
+Lorsque qu'on essaie d'accéder à la guard page, une erreur STATUS_GUARD_PAGE_VIOLATION est levée et le processus s'arrête. Or sur une VM, l'erreur est ignorée.
 
 ## API calls
+Lorsqu'un processus est lancé en mode débug, des valeurs spécifiques sont attribuées à certains flags et/ou à certaines de ses propriétés. Les malwares utilisent très souvent des bibliothèques Windows afin d'obtenir ces informations afin de savoir s'ils sont dans un débugger.
 
 ### IsDebuggerPresent / CheckRemoteDebuggerPresent
-Checks a specific flag in PEB and return non-zero if the process is being debugged.
+Si le processus est lancé dans un débugger, un flag spécifique dans PEB est activé. Les API IsDebuggerPresent et CheckRemoteDebuggerPresent retournent une valeur différente de 0 si ce flag est activé.
 
-### FindWindows
-Used to detect specific debuggers. For OllyDbg window class is named “OLLYDBG”. Other debuggers classes checks include “WinDbgFrameClass”, “ID”, “Zeta Debugger”, “Rock Debugger” and “ObsidianGUI”.
+### FindWindow
+Cette API cherche si des débugger sont lancés en cherchant dans le noms des fenêtres lancés sur le système (par ex : “OLLYDBG”). Pour certains débuggers, la vérification est également faite sur d'autres éléments de la fenêtre (par ex : “WinDbgFrameClass”, “ID”, “Zeta Debugger”, “Rock Debugger” ou “ObsidianGUI”)
 
 ### NtQueryObject
-Queries for various object information. Check if object type is a “debug object”.
+Cette API requêtes des informations sur des objets. Parmi ces informations, un processus en cours de débug est de type "debug object".
 
 ### NtQuerySystemInformation (ZwQuerySystemInformation)
-Checks if debug object handle exists and returns true if it’s the case.
+L'API vérifie si le le handle du debug object existe et retourne vrai si c'est le cas.
 
 ### NtSetInformationThread (ZwSetInformationThread)
-Checks if class HideThreadFromDebugger has been passed as an argument. This class prevent the debugger from receiving events (breakpoints, exiting the program, …) from any thread that has this API called on it.
+L'API vérifie si la classe HideThreadFromDebugger a été passée en argument. Cette classe passe sous silence les évènements (breakpoints, exiting the program, …) des threads ayant invoqué cette API , au lieu de les envoyer au débugger.
 
 ### NtContinue
-Used to modify current context or load a new one in the current thread, which can confuse debugger.
+Afin de provoquer des comportements inatendus dans le debugger, NtContinue modifie le contexte ou en charge un différent dans le thread.
 
 ### CloseHandle / NtClose
-Calling of ZwClose with invalid handle generates STATUS_INVALID_HANDLE exception when the process is debugged.
+En appelant ces API avec un handle invalide, l'exception STATUS_INVALID_HANDLE est levée si le processus est en cours de débugg.
 
 ### GenerateConsoleCtrlEvent
-Invokes a Ctrl+C signal. If EXCEPTION_CTL_C exception is raised and is true, that’s mean the process is being debugged.
+Envoie un Ctrl+C. Si le processus est en cours de debugg, l'exception EXCEPTION_CTL_C est alors levée et est vraie.
 
 ### OutputDebugString
-Sends a string to the debugger to display it.
+Envoie une chaîne de caractères au débugger afin qu'il l'affiche.
 
 ## Flags
+Il existe certaines valeurs, octets, etc... notamment dans le PEB, permettant de vérifier si le processus est en cours de débug ou non.
 
 ### Trap flag
-If this flag is set, instructions are executed in single-step mode (step-by-step) and raises SINGLE_STEP exception.
+Lorsque le processus est débuggué en single-step-mode, l'exception SINGLE_STEP est levée et un flag que l'on appelle trap flag est activé.
 
 Ex:
 ```assembly
-pushf                                                    ; Push flag on stack
-mov dword [esp], 0x100                ; Set TrapFlag flag (0x100)
+pushf                                                     ; Push flag on stack
+mov dword [esp], 0x100                                    ; Set TrapFlag flag (0x100)
 popf                                                      ; Restore flag register
 ```
 
