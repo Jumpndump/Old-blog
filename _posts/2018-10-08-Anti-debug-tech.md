@@ -6,6 +6,7 @@ tag: tuto_malware
 category: post
 ---
 
+## Techniques d'anti-debugg les plus communes (Cheat Sheet)
 La plupart des malwares implémentent des mécanismes d'anti-debug. Cela à pour conséquence de crasher le malware lorsque celui-ci détecte qu'il est en train d'être analysé.
 
 Il existe plusieurs techniques d'anti-debug, mais les plus communes et classiques sont les suivantes.
