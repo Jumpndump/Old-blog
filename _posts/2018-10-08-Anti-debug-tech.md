@@ -97,5 +97,13 @@ push eax
 retn                        ; else, jump to bad location to make the program crash
 ```
 
+## Vérification du checksum
+Cette méthode consiste à comparer le CRC32 calculé pour certains blocs ou tout le processus avec la valeur codée en dure. Si les valeurs sont différentes, cela signifie que des changements dans le codes ont étés faits en dynamiques (ajout de breakpoints par exemple).
+
+## Auto-débug
+Il peut arriver qu'un processus lance le débug sur lui-même afin de vérifier s'il n'est pas déjà en train d'être débuggué.
+
+## Fausses instructions
+
 
 Ref: http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/
