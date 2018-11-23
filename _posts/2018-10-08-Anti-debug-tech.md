@@ -23,7 +23,7 @@ Le but ici est de vérifier la présence des registres de débug DR0...DR4. Pour
 Une guard page est une zone mémoire non mappée, créée automatiquement lors d'opérations d'allocation. Elle permet de se prémunir des heap buffer overflow et se place entre la pile et le tas.
 Lorsque qu'on essaie d'accéder à la guard page, une erreur STATUS_GUARD_PAGE_VIOLATION est levée et le processus s'arrête. Or sur une VM, l'erreur est ignorée.
 
-## API calls
+## Obtention d'informations grâce aux appels de fonctions
 Lorsqu'un processus est lancé en mode débug, des valeurs spécifiques sont attribuées à certains flags et/ou à certaines de ses propriétés. Les malwares utilisent très souvent des bibliothèques Windows afin d'obtenir ces informations afin de savoir s'ils sont dans un débugger.
 
 ### IsDebuggerPresent / CheckRemoteDebuggerPresent
@@ -53,27 +53,47 @@ Envoie un Ctrl+C. Si le processus est en cours de debugg, l'exception EXCEPTION_
 ### OutputDebugString
 Envoie une chaîne de caractères au débugger afin qu'il l'affiche.
 
-## Flags
+## Présence de certains flags
 Il existe certaines valeurs, octets, etc... notamment dans le PEB, permettant de vérifier si le processus est en cours de débug ou non.
 
 ### Trap flag
 Lorsque le processus est débuggué en single-step-mode, l'exception SINGLE_STEP est levée et un flag que l'on appelle trap flag est activé.
 
 Ex:
-```assembly
+```
 pushf                                                     ; Push flag on stack
 mov dword [esp], 0x100                                    ; Set TrapFlag flag (0x100)
 popf                                                      ; Restore flag register
 ```
 
-### IsDebugged
-API call IsDebuggerPresent() check for the 2nd byte of PEB. Return 0 if is not debugged.
+### IsDebuggerPresent
+L'API IsDebuggerPresent() vérifie l'état du 2nd octet du PEB et retourne 0 si le processus n'est pas en cours de débug.
 
 ### NtGlobalFlag
-Check the offset offset 0x68/0xBC (x86/x64) in PEB is set to 0x70. This value is set when a process is created with a debugger.
+Vérifie si l'offset 0x68/0xBC (x86/x64) dans le PEB est à la valeur 0x70. Si cette valeur est présente, cela signifie que le processus a été créé lancé avec un débugger.
 
 ### Heap Flags
+Il est également possible de vérifier la présence des flags "Flags" et "ForceFlags", situés dans le tas.
 
+## Temps d'exacution des instructions
+Dans un cycle d'horloge, une ou plusieurs instructions peuvent être exécutées par le processeur. Il est alors possible de vérifier si le processus est en cours de débug ou non en vérifiant le timing des instructions.
 
+### GetTickCount, GetLocalTime, GetSystemTime, timeGetTime, NtQueryPerformanceCounter
+Ces fonctions sont utilisées pour mesurer le temps d'exécution nécessaire pour certaines fonctions ou ensemble d'instructions. Le process est amené à quitter si le temps d'exécution dépasse le seuil qui a été fixé.
+
+### Read Time Stamp Counter (rdtsc)
+L'instruction rdtsc fait la même chose que les appels ci-dessus. Elle peut s'utiliser par exemple de la manière suivante :
+```
+rdtsc                       ; get current timestamp (saved in a 64 bit value: EDX [first half], EAX [second half])
+xor ecx,ecx                 ; sets ECX to zero
+add ecx,eax                 ; save timestamp to ECX
+rdtsc                       ; get another timestamp
+sub eax,ecx                 ; compute elapsed ticks
+cmp eax,0FFF
+jb short bintext.0041B652   ; jump if less than FFF ticks (assumes that program is not running under a debugging tool)
+rdtsc
+push eax
+retn                        ; else, jump to bad location to make the program crash
+```
 
 Ref: http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/
