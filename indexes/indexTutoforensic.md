@@ -4,7 +4,7 @@ permalink: /forensiclab/tuto/
 title: ForensicLab-Tuto
 ---
 <p align="center">FORENSIC LAB - TUTO</p>
-<p>Cette section centralise les fiches méthodes et tutoriels de forensic.</p><br>
+<p align="center">Cette section centralise les fiches méthodes et tutoriels de forensic.</p><br>
 
 
  {% for post in site.tags.tuto_forensic %}

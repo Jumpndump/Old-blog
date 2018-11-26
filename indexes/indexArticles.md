@@ -4,7 +4,7 @@ permalink: /articles/
 title: Articles
 ---
 <p align="center">ARTICLES</p>
-<p>Cette section centralise tous les articles sur divers sujets.</p><br>
+<p align="center">Cette section centralise tous les articles sur divers sujets.</p><br>
 
 
  {% for post in site.tags.article %}
