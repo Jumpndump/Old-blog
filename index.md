@@ -7,11 +7,14 @@ title: HOME
 
  {% for post in site.posts %}
   <article>
+    <div class="date"><time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_string }}</time></div>
+
     <h2>
-     {{ post.title }} <br><code> {{ post.tag }} </code>
+     <a href="{{ post.url }}">{{ post.title }}</a>
+     <br><code> {{ post.tag }} </code>
     </h2>
-    <time datetime="{{ post.date | date: "%Y-%m-%d" }}">{{ post.date | date_to_string }}</time><br>
-    {{ post.content | strip_html | truncatewords:75}}<br>
-            <a href="{{ post.url }}">Read more...</a><br><br>
+
+    <br>
+
   </article>
 {% endfor %}
