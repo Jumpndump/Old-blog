@@ -61,7 +61,7 @@ Il existe certaines valeurs, octets, etc... notamment dans le PEB, permettant de
 Lorsque le processus est débuggué en single-step-mode, l'exception SINGLE_STEP est levée et un flag que l'on appelle trap flag est activé.
 
 Ex:
-```x86asm
+```assembler
 pushf                                                     ; Push flag on stack
 mov dword [esp], 0x100                                    ; Set TrapFlag flag (0x100)
 popf                                                      ; Restore flag register
@@ -84,7 +84,7 @@ Ces fonctions sont utilisées pour mesurer le temps d'exécution nécessaire pou
 
 ### Read Time Stamp Counter (rdtsc)
 L'instruction rdtsc fait la même chose que les appels ci-dessus. Elle peut s'utiliser par exemple de la manière suivante :
-```x86asm
+```assembler
 rdtsc                       ; get current timestamp (saved in a 64 bit value: EDX [first half], EAX [second half])
 xor ecx,ecx                 ; sets ECX to zero
 add ecx,eax                 ; save timestamp to ECX
@@ -103,8 +103,7 @@ Cette méthode consiste à comparer le CRC32 calculé pour certains blocs ou tou
 ## Auto-débug
 Il peut arriver qu'un processus lance le débug sur lui-même afin de vérifier s'il n'est pas déjà en train d'être débuggué.
 
-
-
+<br><br>
 _References_
 
 ---
