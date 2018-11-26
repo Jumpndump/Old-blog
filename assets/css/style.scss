@@ -12,8 +12,6 @@ light purple : #b8a7ff
 green : #25f68b
 */
 
-@import "github-syntax-dark/lib/github-dark.css";
-
 //header
 $header-bg-color: #333333;
 
@@ -35,7 +33,7 @@ code {
 }
 
 table {
-    font-size: 12px;   
+    font-size: 12px;
 }
 
 .tag {
@@ -52,7 +50,7 @@ table {
 }
 
 .project-name {
-     text-shadow: -1px 0 40px #25f68b, 1px 0 0px #25f68b, 0 -1px 10px #25f68b;   
+     text-shadow: -1px 0 40px #25f68b, 1px 0 0px #25f68b, 0 -1px 10px #25f68b;
 }
 
 .main-content {
@@ -82,7 +80,7 @@ table {
 }
 
 .highlight {
-    background-color: #333333;   
+    background-color: #333333;
 }
 
 // MENU
@@ -105,7 +103,7 @@ table {
   padding-left: 0px;
   //margin-right: auto;
   //margin-left: auto;
-  
+
 }
 #menu-bar li {
   padding: 0px 0px 2px;
