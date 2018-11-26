@@ -3,7 +3,8 @@ layout: default
 permalink: /fiches/
 title: Fiches
 ---
-<p align="center">TOUTES LES FICHES</br>Cette section centralise toutes les cheat sheet concernant Windows et Linux.</p><br>
+<p align="center">TOUTES LES FICHES</p>
+<p>Cette section centralise toutes les cheat sheet concernant Windows et Linux.</p><br>
 
 
  {% for post in site.tags.fiche %}

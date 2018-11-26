@@ -3,7 +3,8 @@ layout: default
 permalink: /fiches/linux/
 title: FichesLinux
 ---
-<p align="center">FICHES - LINUX</br>Cette section centralise toutes les cheat sheet et fiches d'explications concernant le système Linux.</p><br>
+<p align="center">FICHES - LINUX</p>
+<p>Cette section centralise toutes les cheat sheet et fiches d'explications concernant le système Linux.</p><br>
 
 
  {% for post in site.tags.fiche_linux %}
