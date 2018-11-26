@@ -103,7 +103,9 @@ Cette méthode consiste à comparer le CRC32 calculé pour certains blocs ou tou
 ## Auto-débug
 Il peut arriver qu'un processus lance le débug sur lui-même afin de vérifier s'il n'est pas déjà en train d'être débuggué.
 
-References
+
+
+_References_
 
 ---
 http://antukh.com/blog/2015/01/19/malware-techniques-cheat-sheet/
