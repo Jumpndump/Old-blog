@@ -3,6 +3,8 @@ layout: default
 permalink: /articles/
 title: Articles
 ---
+<p align="center">ARTICLES</br>Cette section centralise tous les articles sur divers sujets.</p><br>
+
 
  {% for post in site.tags.article %}
   <article>

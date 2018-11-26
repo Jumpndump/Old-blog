@@ -3,6 +3,8 @@ layout: default
 permalink: /fiches/windows/
 title: FichesWindows
 ---
+<p align="center">FICHES - LINUX</br>Cette section centralise toutes les cheat sheet et fiches d'explications concernant le système Windows.</p><br>
+
 
  {% for post in site.tags.fiche_windows %}
   <article>
