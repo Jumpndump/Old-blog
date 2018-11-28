@@ -44,7 +44,7 @@ Si certains processus malveillants peuvent être triviaux à trouver (nom suspec
 
 Nous allons nous intéresser à deux types de processus : ceux lancés par le **système** et ceux lancés par **userinit**. La plupart du temps, un processus malveillant va se faire passer par un processus système, ces derniers étant parfois obscures et non visibles pour les non initiés. Afin de les débusqués, un petit rappel des processus souvent usurpés :
 
-![ProcessTree.png](./img/ProcessTree.png)
+![ProcessTree.png](../img/ProcessTree.png)
 
 ## Chercher l'intrus...
 
