@@ -1,12 +1,12 @@
 ---
 layout: default
 permalink: /forensiclab/tuto/identifier-processus-malveillant-off
-title: [DRAFT] Identifier un processus malveillant (offline)
+title: (DRAFT)Identifier un processus malveillant (offline)
 tag: tuto_forensic
 category: post
 ---
 
-## [DRAFT] Identifier un processus malveillant (offline)
+## (DRAFT)Identifier un processus malveillant (offline)
 
 L'analyse d'un disque requiert parfois une analyse offline (contrainte d'accessibilité, disponibilité...). Dans ces cas là, il s'agit d'analyser le dump mémoire de la machine infectée afin d'identifier les processus malveillants à un instant t.
 
