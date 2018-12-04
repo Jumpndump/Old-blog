@@ -1,12 +1,12 @@
 ---
 layout: default
 permalink: /forensiclab/tuto/identifier-processus-malveillant-off
-title: Identifier un processus malveillant (offline)
+title: [DRAFT] Identifier un processus malveillant (offline)
 tag: tuto_forensic
 category: post
 ---
 
-## Identifier un processus malveillant (offline)
+## [DRAFT] Identifier un processus malveillant (offline)
 
 L'analyse d'un disque requiert parfois une analyse offline (contrainte d'accessibilité, disponibilité...). Dans ces cas là, il s'agit d'analyser le dump mémoire de la machine infectée afin d'identifier les processus malveillants à un instant t.
 
@@ -83,3 +83,5 @@ vol handles -p <PID>
 Ce plugin permet de savoir dans quel(s) clé(s) de registre le processus malveillant s'est implanté.
 
 ## Les injections de code
+
+[TBC]
