@@ -57,11 +57,9 @@ Les anomalies que l'on rencontre le plus fréquemment sont par exemple :
 
 Il existe un plugin volatility permettant de détecter les anomalies de ce type : **malsysproc**.
 
-\<screen malsysproc\>
-
 Lorsqu'une anomalie est trouvée par malsysproc, le flag FALSE apparaît dans le tableau. Le risque de faux-positifs n'est pas nul, cependant, nous pouvons porter notre attention sur les processus identifiés par le plugin. Un processus malveillant aura souvent les colonnes Path, PPID, Time voir Cmdline en FALSE.
 
-\<screen\>
+![Malsysproc.png](/img/volatility/malsysproc.png)
 
 Il peut être également utile de vérifier si un processus a été lancé par un utilisateur ou le système avec le plugin getsid. Un malware aura généralement tendance a être exécuté avec les droits utilisateur.
 
