@@ -26,7 +26,8 @@ Les quatre autres ruches contiennent les informations suivantes :
 |   **Ruche**  |                                                             **Description**|
 |:--------:|-----------------------------------------------------------------------------------------------------------------------------------|
 | HARDWARE | Contient les informations sur la configuration matérielle à chaque démarrage                                                        |
-| SAM      | Contient les paramètres de configuration des programmes installés sur la machine                                                    |
+| SAM      | Contient les comptes locaux de la machine ainsi que leurs mots de passe
+|
 | SECURITY | Contient les paramètres de sécurité locaux                                                                                          |
 | SOFTWARE | Contient les paramètres de configuration des programmes installés sur la machine                                                    |
 | SYSTEM   | Contient les paramètres de configuration du matériel, des services ainsi que pilotes de périphériques et le nom RAW de ces derniers |
