@@ -146,3 +146,10 @@ Si certains ne sont pas à l'aise avec l'assembleur (no shame), il est alors pos
 ![scdbg_shellcode.PNG](/img/decode-shellcode/scdbg_shellcode.PNG)
 
 On bien nos fonction de chargement de wininet et de connexion au serveur de contrôle. En prime, scdbg permet de retrouver directement l'adresse ou l'IP utilisée pour la connexion ainsi que le port. Pratique !
+
+
+_References_
+
+---
+https://github.com/rapid7/metasploit-framework/tree/master/external/source/shellcode/windows/x86/src/block
+https://gist.github.com/phikshun/2822272
