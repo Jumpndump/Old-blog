@@ -131,4 +131,4 @@ fc e8 82 00 00 00 60 89 e5 31 c0 64 8b 50 30 8b 52 0c 8b 52 [REDACTED]
 
 Pour comprendre ce que fait notre shellcode, nous pouvons le désassembler avec shellen (https://github.com/merrychap/shellen).
 
-![dsm_shellcode1.png](/img/decode-shellcode/dsm_shellcode1.png)
+![dsm_shellcode1.PNG](/img/decode-shellcode/dsm_shellcode1.PNG)
