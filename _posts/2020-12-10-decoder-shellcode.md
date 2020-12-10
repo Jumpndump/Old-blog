@@ -20,7 +20,7 @@ Dans les journaux d'évènements, les traces de commandes Powershell peuvent êt
 
 Nous allons décoder cette chaîne en base64 simplement avec Python :
 
-```python
+```Python
 >>> import io
 >>> import base64
 
