@@ -12,8 +12,6 @@ Lors de la compromission d'une machine, l'une des premières choses que l'on ana
 
 Nous allons ici nous intéresser ici à un malware s'installant sur une machine en se faisant passer pour un service. C'est une technique assez répendue afin d'outrepasser la vigilence de l'utilisateur.
 
-# Décoder le code Powershell
-
 Dans les journaux d'évènements, les traces de commandes Powershell peuvent être visibles dans plusieurs fichiers (Security, Microsoft-Windows-PowerShell/Operational... ). Ici, comme il s'agit d'un service qui s'installe, nous verrons les traces d'exécution dans le fichier Système.evtx (event id : 7045).
 
 ![Evtx_PS.png](/img/decode-shellcode/Evtx_PS.png)
@@ -105,11 +103,32 @@ else {
 }
 ```
 
+Que fait ce script ? Grossomodo, alloue de la mémoire afin de pouvoir y stocker la chaîne encodée en base 64 et enfin l'exécuter. Une fois n'est pas coutume, décodons cette chaîne. Notons que la chaîne, une fois décodée est XORée avec 35.
 
+Ce script est très utilisée notamment par les malwares afin d'envoyer un beacon CobaltStrike au serveur de contrôle - à savoir, pour lui envoyer les informations concernant la nouvelle machine tout juste infectée. Ce qui implique que dans notre dernière chaîne encodée/XORée, nous allons trouver un shellcode qui pourrait nous donner quelques informations utiles !
 
+Une autre manière d'obtenir notre shellcode est d'exécuter la commande dans un terminale ISE :
 
+```
+[Byte[]]$var_code = [System.Convert]::FromBase64String('38uqIyMjQ6rGEvFHqHETqHEvqHE3qFELLJRpBRLcEuOPH0JfIQ8D4uwuIuTB03F0qHEzqGEfIvOoY1um41dpIvNzqGs[REDACTED]')
 
+for ($x = 0; $x -lt $var_code.Count; $x++) {
+	$var_code[$x] = $var_code[$x] -bxor 35
+}
 
+Write-Output $var_code
+```
 
+Nous obtenons de cette manière une chaîne décimale, qu'on l'on va convertir en hexadécimal.
 
-![ProcessTree.png](/img/ProcessTree.png)
+```
+252 232 130 0 0 0 96 137 229 49 192 100 139 80 48 139 82 12 [REDACTED]
+
+fc e8 82 00 00 00 60 89 e5 31 c0 64 8b 50 30 8b 52 0c 8b 52 [REDACTED]
+```
+
+# Désassembler le shellcode
+
+Pour comprendre ce que fait notre shellcode, nous pouvons le désassembler avec shellen (https://github.com/merrychap/shellen).
+
+![dsm_shellcode1.png](/img/decode-shellcode/dsm_shellcode1.png)
