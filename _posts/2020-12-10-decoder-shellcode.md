@@ -127,7 +127,7 @@ Nous obtenons de cette manière une chaîne décimale, que l'on va convertir en 
 fc e8 82 00 00 00 60 89 e5 31 c0 64 8b 50 30 8b 52 0c 8b 52 [REDACTED]
 ```
 
-# Désassembler le shellcode
+### Désassembler le shellcode
 
 Pour comprendre ce que fait notre shellcode, nous pouvons le désassembler avec **shellen** (https://github.com/merrychap/shellen).
 
@@ -139,7 +139,7 @@ Les DLLs système occupent toujours la même adresse en mémoire. De cette mani�
 
 Typiquement, notre shellcode va tout simplement ouvrir une connexion vers un serveur de crontrôle.
 
-# Emuler le shellcode
+### Emuler le shellcode
 
 Si certains ne sont pas à l'aise avec l'assembleur (no shame), il est alors possible d'émuler le shellcode avec **scdbg** (http://sandsprite.com/blogs/index.php?uid=7&pid=152)
 
