@@ -19,7 +19,6 @@ $header-bg-color: #333333;
 // Text
 $body-text-color: #dbdbdb;
 $body-link-color: #606c71;
-$font-family: helvetica;
 
 //code
 $code-bg-color: #000;
@@ -29,6 +28,7 @@ $code-bg-color: #000;
 
 body {
     background-color: #333333;
+    font-family: helvetica;
 }
 
 code {
