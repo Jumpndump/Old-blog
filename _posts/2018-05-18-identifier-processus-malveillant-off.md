@@ -52,7 +52,7 @@ Liste les processus en cours et les processus cachés (EPROCESS blocks) ainsi qu
 ### Psxview
 Liste les processus en cours et cachés (pslist + psscan)
 ![Psxview.png](/img/Psxview.png)
-<center>*Source : https://www.oreilly.com/library/view/digital-forensics-with/9781788625005/4d0403d3-9cba-4a16-bbe4-0a3df437044c.xhtml*</center>
+*<center>Source : https://www.oreilly.com/library/view/digital-forensics-with/9781788625005/4d0403d3-9cba-4a16-bbe4-0a3df437044c.xhtml</center>*
 
 Si certains processus malveillants peuvent être triviaux à trouver (nom suspect, nom de processus légitime avec fautes d'orthographe, lancement inhabituel d'un terminal...), d'autres en revanche peuvent passer presque inaperçu si on ne connaît pas les spécificité du système.
 
