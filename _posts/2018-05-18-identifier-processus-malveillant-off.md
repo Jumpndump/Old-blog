@@ -36,22 +36,30 @@ Il existe 4 plugins permettant de lister les processus actifs sur la machine au 
 
 ### Pslist
 Liste les processus en cours, les informations les concernant (PID, PPID, Threads, timestamp de création...).
+
 ![Pslist.png](/img/Pslist.png)
+
 *Source : https://www.oreilly.com/library/view/digital-forensics-and/9781787288683/369abaa6-8568-4fc4-8e6d-30b072e4520c.xhtml*
 
 ### Pstree 
 Liste les processus de la même manière que pslist, mais en arborescence.
+
 ![Pstree.png](/img/Pstree.png)
+
 *Source : https://www.oreilly.com/library/view/digital-forensics-with/9781788625005/dc17064f-3d4d-4c3f-97f1-66fda0589779.xhtml*
 
 ### Psscan
 Liste les processus en cours et les processus cachés (scan des structures EPROCESS blocks existantes, donc celles ayant été détachées de la liste également) ainsi que leur timestamp de création et de fin.
+
 ![Psscan.png](/img/Psscan.png)
+
 *Source : https://www.oreilly.com/library/view/digital-forensics-and/9781787288683/1e90beab-0052-48f2-835b-7f4bc9fc4810.xhtml*
 
 ### Psxview
 Liste les processus en cours et cachés (pslist + psscan)
+
 ![Psxview.png](/img/Psxview.png)
+
 *Source : https://www.oreilly.com/library/view/digital-forensics-with/9781788625005/4d0403d3-9cba-4a16-bbe4-0a3df437044c.xhtml*
 
 Si certains processus malveillants peuvent être triviaux à trouver (nom suspect, nom de processus légitime avec fautes d'orthographe, lancement inhabituel d'un terminal...), d'autres en revanche peuvent passer presque inaperçu si on ne connaît pas les spécificité du système.
