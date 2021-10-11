@@ -45,7 +45,7 @@ Liste les processus de la même manière que pslist, mais en arborescence.
 *<center>Source : https://www.oreilly.com/library/view/digital-forensics-with/9781788625005/dc17064f-3d4d-4c3f-97f1-66fda0589779.xhtml</center>*
 
 ### Psscan
-Liste les processus en cours et les processus cachés (EPROCESS blocks) ainsi que leur timestamp de création et de fin.
+Liste les processus en cours et les processus cachés (scan des structures EPROCESS blocks existantes, donc celles ayant été détachées de la liste également) ainsi que leur timestamp de création et de fin.
 ![Psscan.png](/img/Psscan.png)
 *<center>Source : https://www.oreilly.com/library/view/digital-forensics-and/9781787288683/1e90beab-0052-48f2-835b-7f4bc9fc4810.xhtml</center>*
 
